@@ -1,0 +1,30 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>Django Placeholder Images</title>
+		<meta name="description" content="">
+		<meta name="keywords" content="">
+		<link href="{% static "site.css" %}" rel="stylesheet" type="text/css">
+	</head>
+	<body>
+		<h1>Django Placeholder Images</h1>
+		<p>这个服务器可以使用placeholder images服务来为任何网页服务</p>
+		<p>使用<b>高</b>和<b>宽</b>来请求一个占位图片来指向
+		<b>/image/&lt;width&gt;x&lt;height&gt;/</b>
+		，比如:</p>
+
+		<pre>
+			&lt;img src="{{example}}" &gt;
+		</pre>
+
+		<h2>示例</h2>
+		<ul>
+			<li><img src="{% url 'placeholder' width=200 height=300 %}"></li>
+			<li><img src="{% url 'placeholder' width=200 height=300 %}"></li>
+			<li><img src="{% url 'placeholder' width=200 height=300 %}"></li>
+		</ul>
+	</body>
+</html>

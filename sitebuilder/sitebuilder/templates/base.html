@@ -1,0 +1,62 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="{% static "css/site.css" %}" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.css" %}">
+	<script type="text/javascript" src="{% static "js/jquery-3.2.1.min.js" %}"></script>
+	<script type="text/javascript" src="{% static "js/bootstrap.min.js" %}"></script>
+	<title>{{slug_tmp}}</title>
+</head>
+<body id="{% block body-id %}body{% endblock body-id %}">
+
+{% block top-nav-wrapper %}
+<div class="navbar navbar-inverse navbar-fixed-top" role='navigation'>
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+			<span class="sr-only-focusable">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="/">1981Tec</a>
+		</div>
+		<div class="collapse navbar-collapse">
+
+			<ul class="nav navbar-nav">
+				<li {% if slug == 'index' %}class="active"{% endif %}>
+					<a href="/">首页</a>
+				</li>
+				<li {% if slug == 'contact' %}class="active"{% endif %}>
+					<a href="{% url 'page' 'contact' %}">联系我</a>
+				</li>
+				<li {% if slug == 'news' %}class="active"{% endif %}>
+					<a href="{% url 'page' 'news' %}">新闻</a>
+				</li>
+				<!-- 这里可以继续添加导航 判断slug值就可以了 照着上面写-->
+			</ul>
+
+			<ul class="nav navbar-nav navbar-right">
+				<li {% if slug == 'login' %}class="active"{% endif %}>
+					<a href="{% url 'page' 'login' %}" class="btn btn-default" role='button'>登录</a>
+				</li>
+			</ul>
+
+		</div>
+	</div>
+</div>
+{% endblock top-nav-wrapper %}
+
+{% block content %}{% endblock content %}
+
+{% block footer %}
+	{% include "footer.html" %}
+{% endblock footer %}
+</body>
+</html>
