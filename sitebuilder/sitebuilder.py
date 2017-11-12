@@ -12,21 +12,22 @@ from django.conf import settings
 
 BASE_DIR = os.path.dirname(__file__)
 
-DEBUG = os.environ.get('DEBUG','on') == 'on'
+#DEBUG = os.environ.get('DEBUG','on') == 'on'
 
-SECRET_KEY = os.environ.get('SECRET_KEY','q8zm+76ay4q-3bazogfq0j04534gmpnm5(o)rdw8)nzr@9jmzm')
+#SECRET_KEY = os.environ.get('SECRET_KEY','q8zm+76ay4q-3bazogfq0j04534gmpnm5(o)rdw8)nzr@9jmzm')
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS','localhost').split(',')
+#ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS','localhost').split(',')
 
 settings.configure(
-	DEBUG = DEBUG,
-	SECRET_KEY = SECRET_KEY,
-	ALLOWED_HOSTS = ALLOWED_HOSTS,
+	DEBUG = True,
+	SECRET_KEY = 'q8zm+76ay4q-3bazogfq0j04534gmpnm5(o)rdw8)nzr@9jmzm',
+	#ALLOWED_HOSTS = ALLOWED_HOSTS,
 	ROOT_URLCONF = 'urls',
 	MIDDLEWARE_CLASSES = (),
 	INSTALLED_APPS = (
 		'django.contrib.staticfiles',
 		'sitebuilder',
+		'compressor',
 
 	),
 	TEMPLATES = (
@@ -42,6 +43,12 @@ settings.configure(
 	SITE_PAGES_DIRECTORY = os.path.join(BASE_DIR,'pages'),
 	SITE_OUTPUT_DIRECTORY = os.path.join(BASE_DIR,'_build'),
 	STATIC_ROOT = os.path.join(BASE_DIR,'_build','static'),
+	#STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.CachedStaticFilesStorage',
+	STATICFILES_FINDERS = (
+		'django.contrib.staticfiles.finders.FileSystemFinder',
+		'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+		'compressor.finders.CompressorFinder',
+	)
 )
 
 

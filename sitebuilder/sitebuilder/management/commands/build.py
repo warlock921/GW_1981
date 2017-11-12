@@ -10,7 +10,7 @@ import shutil
 
 from django.conf import settings
 from django.core.management import call_command
-from django.core.management.base import BaseCommand
+from django.core.management.base import BaseCommand,CommandError
 from django.core.urlresolvers import reverse
 from django.test.client import Client
 
@@ -22,13 +22,32 @@ def get_pages():
 class Command(BaseCommand):
 	help = "创建静态网站输出"
 	leave_local_alone = True
+
+	def add_arguments(self,parser):
+		parser.add_argument('args',nargs='*')
+
 	def handle(self,*args,**options):
 		"""请求页面和建立输出目录"""
-		if os.path.exists(settings.SITE_OUTPUT_DIRECTORY):
-			shutil.rmtree(settings.SITE_OUTPUT_DIRECTORY)
-		os.mkdir(settings.SITE_OUTPUT_DIRECTORY)
+		settings.DEBUG = False
+		settings.COMPRESS_ENABLED = True
+		if args:
+			pages = args
+			available = list(get_pages())
+			invalid = []
+			for page in pages:
+				if page not in available:
+					invalid.append(page)
+				if invalid:
+					msg = 'Invalid pages:{}'.format(','.join(invalid))
+					raise CommandError(msg)
+		else:
+			pages = get_pages()
+			if os.path.exists(settings.SITE_OUTPUT_DIRECTORY):
+				shutil.rmtree(settings.SITE_OUTPUT_DIRECTORY)
+			os.mkdir(settings.SITE_OUTPUT_DIRECTORY)
 		os.makedirs(settings.STATIC_ROOT,exist_ok = True)
 		call_command('collectstatic',interactive=False,clear=True,verbosity=0)
+		call_command('compress',interactive=False,force=True)
 		client = Client()
 		for page in get_pages():
 			url = reverse('page',kwargs={'slug':page})
@@ -37,7 +56,8 @@ class Command(BaseCommand):
 				output_dir = settings.SITE_OUTPUT_DIRECTORY
 			else:
 				output_dir = os.path.join(settings.SITE_OUTPUT_DIRECTORY,page)
-				os.mkdir(output_dir)
+				if not os.path.exists(output_dir):
+					os.mkdir(output_dir)
 			with open(os.path.join(output_dir,'index.html'),'wb') as f :
 				f.write(response.content)
 	
