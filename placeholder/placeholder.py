@@ -30,7 +30,7 @@ DEBUG = os.environ.get('DEBUG','on') == 'on'
 #随机生成的SECRET_KEY
 SECRET_KEY = os.environ.get('SECRET_KEY','1*wp@2t@bpuqocm1tt=!kij*^%-htjj+83fx^gits@u9*fgw7s')
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS','localhost').split(',')
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS','10.0.0.15').split(',')
 
 BASE_DIR = os.path.dirname(__file__)
 

@@ -4,9 +4,12 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<meta name="description" content="">
-	<meta name="keywords" content="">
+	<!-- 这是自适应网页设置，任何设备都是同比例的 -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- 动态设定description kewords -->
+	<meta name="description" content="{{ description|default:'Default prototype description' }}">
+	<meta name="keywords" content="{{ keywords|default:'prototype' }}">
+	<!-- 压缩静态文件CSS JS都可以压缩，显示hash值，属于django组件 -->
 	{% compress css%}
 	<link href="{% static "css/site.css" %}" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.min.css" %}">
@@ -16,8 +19,8 @@
 	<script type="text/javascript" src="{% static "js/jquery-3.2.1.min.js" %}"></script>
 	<script type="text/javascript" src="{% static "js/bootstrap.min.js" %}"></script>
 	{%endcompress%}
-	
-	<title>{{slug_tmp}}</title>
+	<!-- 压缩结束 -->
+	<title>{% block title %} {{slug_tmp}} {% endblock title %}</title>
 </head>
 <body id="{% block body-id %}body{% endblock body-id %}">
 
@@ -26,7 +29,7 @@
 	<div class="container">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-			<span class="sr-only-focusable">Toggle navigation</span>
+			<span class="sr-only-focusable">目录</span>
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
@@ -39,15 +42,18 @@
 				<li {% if slug == 'index' %}class="active"{% endif %}>
 					<a href="/">首页</a>
 				</li>
-				<li {% if slug == 'contact' %}class="active"{% endif %}>
-					<a href="{% url 'page' 'contact' %}">联系我</a>
-				</li>
 				<li {% if slug == 'news' %}class="active"{% endif %}>
 					<a href="{% url 'page' 'news' %}">新闻</a>
 				</li>
+				<li {% if slug == 'pricing' %}class="active"{% endif %}>
+					<a href="{% url 'page' 'pricing' %}">价格查询</a>
+				</li>
+				<li {% if slug == 'contact' %}class="active"{% endif %}>
+					<a href="{% url 'page' 'contact' %}">联系我</a>
+				</li>
+				
 				<!-- 这里可以继续添加导航 判断slug值就可以了 照着上面写-->
 			</ul>
-
 			<ul class="nav navbar-nav navbar-right">
 				<li {% if slug == 'login' %}class="active"{% endif %}>
 					<a href="{% url 'page' 'login' %}" class="btn btn-default" role='button'>登录</a>

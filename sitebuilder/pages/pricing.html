@@ -1,0 +1,100 @@
+{% block context %}
+{
+	"description":"产品 价格 计划",
+	"keywords":"产品,价格,购买",
+	"plans":[
+		{
+			"name":"初始计划",
+			"price":"免费",
+			"class":"success",
+			"features":[1]
+		},
+		{
+			"name":"基础计划",
+			"price":"￥88元/月",
+			"class":"danger",
+			"features":[1,2]
+		},
+		{
+			"name":"企业计划",
+			"price":"￥168元/月",
+			"class":"info",
+			"features":[1,2,3]
+		}
+	],
+	"features":[
+		"优惠 #1",
+		"优惠 #2",
+		"优惠 #3"
+	]
+}
+{% endblock context %}
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<h2>获取价格计划</h2>
+		</div>
+	</div>
+	<div class="row">
+		{% for plan in plans %}
+		<div class="col-md-4">
+			<div class="panel panel-{{plan.class}}">
+				<div class="panel-heading">
+					<h4 class="text-center">
+						{{plan.name}}-{{plan.price}}
+					</h4>
+				</div>
+				<ul class="list-group list-group-flush text-center">
+					{% for feature in features %}
+					<li class="list-group-item {% if forloop.counter not in plan.features %}disabled{% endif %}" >{{feature}}</li>
+					{% endfor %}
+				</ul>
+				<div class="panel-footer">
+					<a href="#" class="btn btn-lg btn-block btn-{{plan.class}}">
+						立刻购买！
+					</a>
+				</div>
+			</div>	
+		</div>
+		{% endfor %}
+		<!-- <div class="col-md-4">
+			<div class="panel panel-danger">
+				<div class="panel-heading">
+					<h4 class="text-center">基础计划 - ￥88元/月</h4>
+				</div>
+				<ul class="list-group list-group-flush text-center">
+					<li class="list-group-item">特征 #1</li>
+					<li class="list-group-item">特征 #2</li>
+					<li class="list-group-item disabled">特征 #3</li>
+				</ul>
+				<div  class="panel-footer">
+					<a href="#" class="btn btn-lg btn-block btn-success">
+						立刻购买！
+					</a>
+				</div>
+			</div>	
+		</div>
+		<div class="col-md-4">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h4 class="text-center">企业计划 - ￥168元/月</h4>
+				</div>
+				<ul class="list-group list-group-flush text-center">
+					<li class="list-group-item">特征 #1</li>
+					<li class="list-group-item">特征 #2</li>
+					<li class="list-group-item">特征 #3</li>
+				</ul>
+				<div  class="panel-footer">
+					<a href="#" class="btn btn-lg btn-block btn-success">
+						立刻购买！
+					</a>
+				</div>
+			</div>	
+		</div>
+	</div> -->
+	<div class="row">
+		<div class="col-md-12">
+			<p>{% lorem %}</p>
+		</div>
+	</div>
+</div>
