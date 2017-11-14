@@ -16,12 +16,12 @@ BASE_DIR = os.path.dirname(__file__)
 
 #SECRET_KEY = os.environ.get('SECRET_KEY','q8zm+76ay4q-3bazogfq0j04534gmpnm5(o)rdw8)nzr@9jmzm')
 
-#ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS','localhost').split(',')
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS','10.0.0.15').split(',')
 
 settings.configure(
 	DEBUG = True,
 	SECRET_KEY = 'q8zm+76ay4q-3bazogfq0j04534gmpnm5(o)rdw8)nzr@9jmzm',
-	#ALLOWED_HOSTS = ALLOWED_HOSTS,
+	ALLOWED_HOSTS = ALLOWED_HOSTS,
 	ROOT_URLCONF = 'urls',
 	MIDDLEWARE_CLASSES = (),
 	INSTALLED_APPS = (
